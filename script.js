@@ -1,13 +1,17 @@
-var todayDate = moment(String).date(Number);
-$(".date-text").append(todayDate);
-console.log(todayDate);
+var todayDate = $(".date-text").text(moment().format("MMMM Do YYYY"));
 
-var futureDate = moment(String).add(7, "days");
-console.log(futureDate);
-$(".future-row").append(futureDate);
+var welcomeText = $(".time-text").text(moment().format("LT"));
+console.log(welcomeText);
 
-var pastDate = moment(String).subtract(7, "days");
-console.log(pastDate);
-$(".past-row").append(pastDate);
+var timeBlockClone = $(".time-block");
 
+$(document).ready(function() {
+    for (var i = 0; i < 24; i++) {
+        timeBlockClone.clone().insertAfter(timeBlockClone);
+        timeBlockClone.text(moment.duration(12, "hours"));
+    }
+});
 
+console.log(timeBlockClone)
+
+// for loop for the generation of seperate hours
