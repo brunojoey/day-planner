@@ -1,11 +1,20 @@
 body {
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 font-size: 2em;
-color: white;
 font-weight: bold;
 background-color: rgb(255, 100, 80);
 padding: 0;
 margin: 0;
+color: white
+}
+
+.schedule {
+    text-align: left;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: rgb(255,100,80)
 }
 
 .container {
