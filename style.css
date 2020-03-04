@@ -14,13 +14,27 @@ color: white
 
 .jumbotron {
     text-align: center;
-    background-color: rgb(255,100,80)
+    background-color: rgb(200,100,80)
 }
 
 .container {
     text-align: center;
 }
 
-.row {
-    padding: 1em;
+tr {
+    display: inline-block;
+    margin-right: 1em;
+    padding: 0 1em 0 1em;
+}
+
+tr:hover {
+    background-color: rgb(200,100,80)
+}
+
+.addBtn {
+    margin: 1em 0 1em 1em;
+}
+
+.tdTwo {
+    color: black;
 }

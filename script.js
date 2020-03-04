@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    var todayDate = $(".date-text").text(moment().format("MMMM Do YYYY"));
-    var welcomeText = $(".time-text").text(moment().format("LT"));
+    $(".date-text").text(moment().format("MMMM Do YYYY"));
+    $(".time-text").text(moment().format("LT"));
     var globalVar = 0;
 
     var hours = [
@@ -99,42 +99,80 @@ $(document).ready(function() {
         {
             hour: "11PM",
             value: "23"
-        },
+        }
     ]
 
-})
+    
+    function generateTable() {
+        // creates a <table> element and a <tbody> element
+        var tbl = $("<table>");
+        var tblBody = $("<tbody>");
 
-function generateTable() {
-    // creates a <table> element and a <tbody> element
-  var tbl = $("<table>");
-  var tblBody = $("<tbody>");
+        // creating all cells
+        for (var i = 0; i < 24; i++) {
+            // creates a table row
+            var row = $("<tr>");
+            row.attr("data-time", hours[globalVar].value);
+            
+            for (var j = 0; j < 1; j++) {
+                // Create a <td> element and a text node, make the text
+                // node the contents of the <td>, and put the <td> at
+                // the end of the table row
+                var tdOne = $("<td>");
+                var tdTwo = $("<td>");
+                var tdThree = $("<td>");
+                var inputElement = $("<input>");
+                var buttonElement = $("<button>");
+                
+                tdOne.addClass("tdOne");
+                tdOne.text(hours[globalVar].hour);
+                inputElement.text({"type": "text", "placeholder": "Place event here"});
+                tdTwo.addClass("tdTwo");
+                tdTwo.append(inputElement);
+                buttonElement.text("Add Event").addClass("btn addBtn");
+                tdThree.append(buttonElement);
+                row.append(tdOne, tdTwo, tdThree);
+            }
+            
+            // add the row to the end of the table body
+            tblBody.append(row);
+            globalVar++;
+        }
+        
+        // put the <tbody> in the <table>
+        tbl.append(tblBody);
+        // appends <table> into <body>
+        $(".container").append(tbl);
+    }
+    
+    var showTime = function() {
+        var interval = setInterval(function() {
+            $(".time-text").text(moment().format("LT"));
+        }, 1000);
+    };
 
-  // creating all cells
-  for (var i = 0; i < 24; i++) {
-    // creates a table row
-    var row = $("<tr>");
-    row.attr("data-time")
+    var userInput = function() {
+        var input = $(".tdTwo").text($("input: text"));
 
-    for (var j = 0; j < 2; j++) {
-      // Create a <td> element and a text node, make the text
-      // node the contents of the <td>, and put the <td> at
-      // the end of the table row
-      var cell = $("<td>");
-      var cellText = document.createTextNode("cell in row "+i+", column "+j);
-      cell.appendChild(cellText);
-      row.appendChild(cell);
+        if (input.val() === "") {
+            alert("You must have an event.");
+        } else {
+            var event = $("<h4>");
+            event.text(input.val());
+            event.prependTo(".tdTwo")
+        }
+        clearInput();
+
     }
 
-    // add the row to the end of the table body
-    tblBody.appendChild(row);
-  }
+    var clearInput = function() {
+        $("input: text" === val(""));
+    }
+    
+    showTime();
+    generateTable();
+    userInput();
 
-  // put the <tbody> in the <table>
-  tbl.appendChild(tblBody);
-  // appends <table> into <body>
-  body.appendChild(tbl);
-  // sets the border attribute of tbl to 2;
-  tbl.setAttribute("border", "2");
-}
-
-// for loop for the generation of seperate hours
+    $(".test").on("click", event);
+    $(".addBtn").on("click", event);
+})
