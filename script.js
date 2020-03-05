@@ -3,107 +3,125 @@ $(document).ready(function() {
     $(".time-text").text(moment().format("LT"));
     var globalVar = 0;
 
+    var getLocalStorageEvents = function(event) {
+        event.preventDefault();
+        formerEvents = JSON.parse(localStorage.getItem("")) || [];
+        localStorage.setItem($(".event-text"), JSON.stringify(allAddedEvents));
+
+        var allAddedEvents = [];
+        var allRowEvents = [];
+        var rowElement = $("<tr>");
+
+        rowElement.each(function() {
+            $(this).children("h4").each(function() {
+                allRowEvents.push($(this).text());
+                console.log($(this))
+            });
+            allAddedEvents.push(allRowEvents);
+    });
+};
+
     var hours = [
         {
-            hour: "12AM",
+            hour: "12 AM",
             value: "0"
         },
         {
-            hour: "1AM",
+            hour: "1 AM",
             value: "1"
         },
         {
-            hour: "2AM",
+            hour: "2 AM",
             value: "2"
         },
         {
-            hour: "3AM",
+            hour: "3 AM",
             value: "3"
         },
         {
-            hour: "4AM",
+            hour: "4 AM",
             value: "4"
         },
         {
-            hour: "5AM",
+            hour: "5 AM",
             value: "5"
         },
         {
-            hour: "6AM",
+            hour: "6 AM",
             value: "6"
         },
         {
-            hour: "7AM",
+            hour: "7 AM",
             value: "7"
         },
         {
-            hour: "8AM",
+            hour: "8 AM",
             value: "8"
         },
         {
-            hour: "9AM",
+            hour: "9 AM",
             value: "9"
         },
         {
-            hour: "10AM",
+            hour: "10 AM",
             value: "10"
         },
         {
-            hour: "11AM",
+            hour: "11 AM",
             value: "11"
         },
         {
-            hour: "12PM",
+            hour: "12 PM",
             value: "12"
         },
         {
-            hour: "1PM",
+            hour: "1 PM",
             value: "13"
         },
         {
-            hour: "2PM",
+            hour: "2 PM",
             value: "14"
         },
         {
-            hour: "3PM",
+            hour: "3 PM",
             value: "15"
         },
         {
-            hour: "4PM",
+            hour: "4 PM",
             value: "16"
         },
         {
-            hour: "5PM",
+            hour: "5 PM",
             value: "17"
         },
         {
-            hour: "6PM",
+            hour: "6 PM",
             value: "18"
         },
         {
-            hour: "7PM",
+            hour: "7 PM",
             value: "19"
         },
         {
-            hour: "8PM",
+            hour: "8 PM",
             value: "20"
         },
         {
-            hour: "9PM",
+            hour: "9 PM",
             value: "21"
         },
         {
-            hour: "10PM",
+            hour: "10 PM",
             value: "22"
         },
         {
-            hour: "11PM",
+            hour: "11 PM",
             value: "23"
         }
     ]
 
     
-    function generateTable() {
+    var generateTable = function() {
         // creates a <table> element and a <tbody> element
         var tbl = $("<table>");
         var tblBody = $("<tbody>");
@@ -126,7 +144,7 @@ $(document).ready(function() {
                 
                 tdOne.addClass("tdOne");
                 tdOne.text(hours[globalVar].hour);
-                inputElement.text({"type": "text", "placeholder": "Place event here"});
+                inputElement.text({"type": "text", "class": "event-text"});
                 tdTwo.addClass("tdTwo");
                 tdTwo.append(inputElement);
                 buttonElement.text("Add Event").addClass("btn addBtn");
@@ -145,34 +163,50 @@ $(document).ready(function() {
         $(".container").append(tbl);
     }
     
-    var showTime = function() {
-        var interval = setInterval(function() {
-            $(".time-text").text(moment().format("LT"));
-        }, 1000);
-    };
+
+    var clearInput = function() {
+        $("input:text").val("");
+    }
 
     var userInput = function() {
-        var input = $(".tdTwo").text($("input: text"));
+        var input = $(this).parent().siblings($(".tdTwo")).children($("input:text"));
 
         if (input.val() === "") {
             alert("You must have an event.");
         } else {
-            var event = $("<h4>");
-            event.text(input.val());
-            event.prependTo(".tdTwo")
+            var eventInput = $("<h4>");
+            eventInput.text(input.val());
+            eventInput.prependTo($(this).parent().siblings(".tdTwo"));;
+            clearInput();
         }
-        clearInput();
+    };
 
+
+    var rowSelector = function() {
+        $("tr").each(function() {
+            if (parseInt($(this).data().time) < parseInt(moment().format('H'))) {
+                $(this).css("background-color", "indigo");
+                
+            } else if (parseInt($(this).data().time) === parseInt(moment().format('H'))) {
+                
+            } else {
+                $(this).css("background-color", "grey");
+            }
+        })
+    };
+
+    var changeRowColor = function() {
+        setInterval(function() {
+            rowSelector();
+        }, 60000);
     }
 
-    var clearInput = function() {
-        $("input: text" === val(""));
-    }
-    
-    showTime();
     generateTable();
     userInput();
+    rowSelector();
+    changeRowColor();
+    
 
-    $(".test").on("click", event);
-    $(".addBtn").on("click", event);
-})
+    $(".addBtn").on("click", userInput);
+    $(".addBtn").on("click", getLocalStorageEvents);
+});

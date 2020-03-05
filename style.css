@@ -2,39 +2,60 @@ body {
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 font-size: 2em;
 font-weight: bold;
-background-color: rgb(255, 100, 80);
+background-color: lightblue;
 padding: 0;
 margin: 0;
-color: white
-}
-
-.schedule {
-    text-align: left;
+color: black;
 }
 
 .jumbotron {
     text-align: center;
-    background-color: rgb(200,100,80)
+    background-color: lightblue;
+    color: black;
+    padding: 0;
+    text-shadow: 1px 1px grey;
 }
 
-.container {
-    text-align: center;
-}
-
-tr {
-    display: inline-block;
-    margin-right: 1em;
-    padding: 0 1em 0 1em;
-}
-
-tr:hover {
-    background-color: rgb(200,100,80)
+.tdOne {
+    padding-left: 1em;
 }
 
 .addBtn {
-    margin: 1em 0 1em 1em;
+    margin: 1em 1em 1em 1em;
 }
 
-.tdTwo {
+input {
     color: black;
+    width: 30em;
+    margin-left: 1em;
 }
+
+table {
+    display: flex;
+    justify-content: center;;
+}
+
+tr {
+    background-color: rgba(0.5);
+}
+
+@media screen and (min-width: 768px) {
+.jumbotron {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    table {
+        width: 30%;
+        margin-left: 6.5em;
+    }
+    input {
+        width: 180px;
+    }
+    .jumbotron {
+        text-align: center;
+        display: inline-block;
+    }
+};
