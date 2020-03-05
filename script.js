@@ -185,7 +185,7 @@ $(document).ready(function() {
     var rowSelector = function() {
         $("tr").each(function() {
             if (parseInt($(this).data().time) < parseInt(moment().format('H'))) {
-                $(this).css("background-color", "indigo");
+                $(this).css("background-color", "olive");
                 
             } else if (parseInt($(this).data().time) === parseInt(moment().format('H'))) {
                 
